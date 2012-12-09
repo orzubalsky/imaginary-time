@@ -4,7 +4,7 @@ from dajaxice.utils import deserialize_form
 from django.utils import simplejson as json
 from django.utils.safestring import mark_safe
 from django.core.mail import mail_admins, send_mail
-from time.forms import *
+from imaginary_time.forms import *
 
 
 @dajaxice_register(method='POST')

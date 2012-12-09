@@ -1,4 +1,4 @@
-from time.models import *
+from imaginary_time.models import *
 from django.contrib import admin
 
 class ResponseAdmin(admin.ModelAdmin):

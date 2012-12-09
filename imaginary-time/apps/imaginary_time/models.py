@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.db.models import *
 from django.db.models.signals import post_save
 from django.dispatch import receiver  
 import os, sys, pytz, uuid, random
@@ -44,3 +44,4 @@ class Response(Base):
 @receiver(post_save, sender=Response)
 def email_response(sender, **kwargs):
     # format values in an email and send to the knitters
+    pass

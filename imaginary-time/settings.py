@@ -75,7 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
-    'time.middleware.XsSharing',    
+    'imaginary_time.middleware.XsSharing',    
     'django.middleware.gzip.GZipMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -84,13 +84,13 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'time.urls'
+ROOT_URLCONF = 'imaginary_time.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    PROJECT_DIR + '/apps/time/templates',
+    PROJECT_DIR + '/apps/imaginary_time/templates',
     PROJECT_DIR + '/templates',
 )
 
@@ -115,7 +115,7 @@ INSTALLED_APPS = (
     'django.contrib.redirects',
     'south',                        # intelligent schema and data migrations
     'dajaxice',                     # django ajax app
-    'time',                         # imaginary time app   
+    'imaginary_time',                         # imaginary time app   
 )
 
 

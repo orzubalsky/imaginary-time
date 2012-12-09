@@ -1,5 +1,5 @@
 from django import forms
-from time.models import *
+from imaginary_time.models import *
 
 class ResponseForm(forms.ModelForm):
     class Meta: 
