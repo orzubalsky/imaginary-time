@@ -25,8 +25,6 @@ PROJECT_DIR = os.path.dirname(__file__)
 sys.path.append(os.path.dirname(PROJECT_DIR))    
 sys.path.append(PROJECT_DIR)
 sys.path.append(os.path.join(PROJECT_DIR, 'apps'))                      
-sys.path.append(os.path.join(PROJECT_DIR, 'libs'))
-
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -53,10 +51,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.DefaultStorageFinder',
     'dajaxice.finders.DajaxiceFinder',
-)
-
-LOCALE_PATHS = (
-    os.path.join(PROJECT_DIR, 'locale/'),
 )
 
 # List of callables that know how to import templates from various sources.
