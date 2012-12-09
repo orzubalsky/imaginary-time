@@ -1,0 +1,567 @@
+body {
+	font-family:"Andale Mono","Monotype.com",  "Droid Sans", monospace, Helvetica, Arial, sans-serif;
+	font-size:10px;
+	line-height:12px;
+	color:#000; 
+	margin:0;
+}
+a {
+	cursor:pointer;
+	text-decoration:none;
+	outline: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+}
+h2 {
+	font-size:10px;
+	font-weight:normal;
+	line-height:12px;
+	color: #005fff;
+}
+
+#container {
+    
+}
+#clickLayer {
+	position:absolute;
+	height:100%;
+	width:100%;
+	background-color:white;
+	z-index:2;
+	display:none;
+
+	/* Theoretically for IE 8 & 9 (more valid) */	
+	/* ...but not required as filter works too */
+	/* should come BEFORE filter */
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+
+	/* This works in IE 8 & 9 too */
+	/* ... but also 5, 6, 7 */
+	filter: alpha(opacity=20);
+
+	/* Older than Firefox 0.9 */
+	-moz-opacity:0.2;
+
+	/* Safari 1.x (pre WebKit!) */
+	-khtml-opacity: 0.2;
+
+	/* Modern!
+	/* Firefox 0.9+, Safari 2?, Chrome any?
+	/* Opera 9+, IE 9+ */
+	opacity: 0.2;
+	
+}
+/*detail text about a sound*/
+.soundText {
+    color:#666;
+    background:url(../images/arrow.png) 25px 25px no-repeat;
+    position:absolute;
+    top:100px;
+	height:108px;
+	text-transform:uppercase;
+	display:none;
+	z-index:2000;
+}
+.soundText .story{
+	position:relative;
+	width:300px;
+	border:dotted #ccc 1px;
+	left:35px;
+	top:5px;
+	padding:2px;
+	background:url(../images/transparent.png);
+}
+#loadingGif {
+	width:100%;
+	height:100%;
+	position:absolute;
+	left:0;
+	top:0;
+	display: block;
+	background:url(../images/loading_greystripes.gif);
+	z-index:1000;
+}
+#logo {
+	background:url(../images/logo2.png);
+	width:143px;
+	height:14px;
+	display:block;
+	margin:10px;
+}
+
+/*menus*/
+#topMenu, #bottomMenu {
+    z-index: 1;
+    position: absolute;    
+}
+#topMenu {
+}
+#bottomMenu {
+	right:0px;
+	bottom:0px;
+}
+/*addConstellation button*/
+#addConstellationText {
+	display:none;
+	width:200px;
+	position:absolute;
+	top:205px;
+	left:100px;
+}
+/*addSound buttons*/
+#addSoundText {
+	position:relative;
+	right:69px;
+	width:60px;
+	bottom:28px;
+    
+}
+
+/*constellation menu*/
+#constellationMenu {
+	width:140px;
+	position:relative;
+	left:15px;
+	bottom:32px;
+	height:160px;
+	z-index:2;
+}
+#constellationMenu #scrollDown {
+	height:10px;
+	width:100px;
+	display:block;
+	display:none;
+	position:relative;
+	top:-5px;
+	cursor:pointer;
+}
+#constellationMenu #scrollUp {
+	height:10px;
+	width:100px;
+	display:block;
+	display:none;
+	position:relative;
+	top:-8px;
+	cursor:pointer;
+}
+#contContentContainer {
+	
+}
+#constellationMenuContent {
+	color:#AAA;
+	display:none;
+	overflow:hidden;
+	height:117px;
+	position:relative;
+	top:-5px;
+}
+#constellationMenuContent .selected {
+	color:#000;
+}
+#constellationMenuContent a {
+	color:#999;
+}
+#constellationMenuContent a:hover {
+	color:#333;
+}
+/*addSound addConstellation forms*/
+#addSound {
+	position:absolute;
+	right:131px;
+	bottom:20px;
+	z-index: 3;
+	margin-top:0px;
+	padding-top:0px;
+	display:none;
+	min-height:170px;
+	width:265px;
+	background-color:#005fff;
+}
+#addSound label {
+    position: absolute;
+    top: 2.4px;
+    left: 3px;
+    color: #005fff;    
+}
+/* saf3+, chrome1+ argh! */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#addSound {
+		bottom:20px;
+	}
+	#constellationMenu {
+		bottom:32px;
+	}
+	#addSoundText {
+		bottom:24px;
+	}
+}
+#addSoundTriangle {
+	position:relative;
+	left:-20px;
+	top:35px;
+	border:none;
+}
+#addConstellation {
+	position:absolute;
+	left:109px;
+	top:260px;
+	display:none;
+	z-index:2;
+	width:265px;
+	min-height:120px;
+	background-color:#005fff;
+}
+#addConstellationTriangle {
+	position:relative;
+	left:20px;
+	top:-20px;
+	border:none;
+}
+#addSoundForm, #addConstellationForm {
+	color:#FFF;
+	font-family:"Andale Mono", "Monotype.com", "Droid Sans", monospace, Helvetica, Arial, sans-serif;
+	font-size:1em;
+	line-height:12px;
+	padding:0px 15px 5px 10px;
+	margin-top:-10px;
+}
+	
+#addSoundForm input, #addSoundForm textarea, #addConstellationForm input, #addConstellationForm textarea {
+	background-color: #FFF;
+	color:#005fff;
+	width: 240px;
+	border:none;
+	margin:0 0 10px;
+	padding:2px;
+	font-family:"Andale Mono","Monotype.com","Droid Sans", monospace, Helvetica, Arial, sans-serif;
+	font-size:1em;
+}
+::-webkit-input-placeholder {
+	color:#005fff;
+}
+:-moz-placeholder {
+	color:#005fff;
+}
+:-ms-input-placeholder {
+	color:#005fff;
+}
+#addSoundForm textarea {
+	height:20px;
+}
+#addSoundForm button, #addConstellationForm button {
+	border:none;
+	background:transparent;
+	padding-left:0;
+	margin-left:0;
+	color:#FFF;
+	font-family:"Andale Mono", "Monotype.com", "Droid Sans",  monospace, Helvetica, Arial, sans-serif;
+	font-size:1em;
+	cursor:pointer;
+}
+#addSoundForm button.time {
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #fff;
+    color: #005fff;
+    padding:3px;
+    
+}
+#addSoundForm button.selected {
+    background-color:yellow;
+    
+}
+#addSoundForm input.formSubmit, #addConstellationForm input.formSubmit, #locateSoundForm input.formSubmit {
+	border:none;
+	background-color:transparent;
+	color:#FFF;
+	text-align:right;
+	padding:0;
+	margin:0;
+	cursor:pointer;
+}
+#addSoundForm ul, #addConstellationForm ul, #locateSound ul {
+	margin-left:0;
+	padding-left:0;
+	/*display:none;*/
+}
+#addSoundForm li, #addConstellationForm li, #locateSound li {
+	list-style: none;
+	position: relative;
+}
+#addSoundCheck{
+	padding-top:50px;
+}
+#addConstellationCheck{
+	padding-top:30px;
+}
+#addSoundCheck, #addConstellationCheck, #feedbackCheck {
+	text-align:center;
+	color:#FFF;
+	background-color:#005fff;
+	position:relative;
+	display:none;
+}
+#addSoundForm .optional, #addConstellationForm .optional {
+    background-color:#b3cfff;
+}
+#addSoundForm .optional {
+    margin-bottom:8px;
+}
+#id_lon {
+	display:none;
+}
+#id_lat {
+	display:none;
+}
+/* saf3+, chrome1+ argh! */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#addSoundCheck{
+		padding-top:50px;
+	}
+	#addSoundForm .optional {
+	    margin-bottom:5px;
+	}
+}
+/*error*/
+#error {
+	margin:auto;
+	width:130px;
+	display:none;
+	z-index:2;
+	position:relative;
+	
+}
+#errorText {
+	z-index:10;
+}
+#errorTriangle {
+	position:relative;
+	left:110px;
+	top:97px;
+	border:none;
+}
+#errorMessage {
+	width:80px;
+	background:#ff0000;
+	padding:5px 15px;
+	color:#FFF;
+}
+
+#feedback input.error, 
+#feedback textarea.error {
+    background: #ff0000;
+}
+/*about*/
+#aboutContainer {
+	position:absolute;
+	top:40px;
+	width:100%;
+	z-index:2;
+}
+#about {
+    position:relative;
+    top:40px;
+	width:250px;
+	padding:45px 40px;
+	display:none;
+	background-color:#005fff;
+	margin:auto;
+	text-align:center;
+	z-index:2;
+}
+#about .description {
+	color:#FFF;
+	margin:60px 0 90px;
+	text-align:left;
+}
+/*new*/
+#about .description.english {
+	
+}
+#about .description.arabic {
+	font-family:Tahoma, sans-serif;
+	text-align:right;
+	font-size:1.2em;
+	line-height:1.4em;
+	display:none;
+}
+#about #aboutLinks {
+	position:relative;
+	left:-80px;
+	bottom:-45px;
+	}
+#about #aboutLinks li{
+	list-style:none;
+	float:left;
+	width:55px;
+	height:25px;
+	color:#005fff;
+	text-transform:uppercase;
+	padding:7px;
+	display:block;
+}
+#aboutLinks #toggleLanguage {
+	/*background-color:#70c3f9;*/
+	background-color:#9eceff;
+}
+#aboutLinks #toggleEn {
+	display:none;
+}
+#aboutLinks #toggleAr {
+}
+#aboutLinks li#classicSite {
+	display:none;
+}
+#aboutLinks #contactUs {
+	background-color:#bddeff;
+}
+
+/*feedback form*/
+/*---------FEEDBACK FORM------------*/
+#feedback {
+	position:fixed;
+	width:270px;
+	height: 191px;
+	right:-322px;
+	top:88px;
+	background: #005fff;
+	color:white;
+	font-weight:normal;
+	padding: 15px;
+	z-index: 110;
+	line-height: 1.2em;
+}
+#feedback h1 {
+	color: white;
+	font-size: 1em;
+	font-weight:normal;
+	letter-spacing: 1px;
+	margin-bottom: 15px;
+	text-transform:uppercase;
+}
+#feedback ul {
+	margin:0;
+	padding:0;
+	}
+#feedback li {
+	list-style:none;
+	}
+#feedback textarea, #feedback input {
+	font-weight:normal;
+	display:block;
+	width:258px;
+	margin-top: 10px;
+	border: none;
+	color: #005fff;
+	padding: 5px;
+	background: #fff;
+	margin-bottom: 10px;
+}
+#feedback textarea {
+    height: 26px;
+}
+#feedback .formSubmit {
+	font-family:"Andale Mono", "Monotype.com", "Droid Sans", monospace , Arial, sans-serif;
+	width: 270px;
+	padding: 0px;
+	background: transparent;	
+	color:white;
+	text-align:right;
+	cursor:pointer;
+}
+#feedback #feedback_tab {
+	background:url(../images/feedback_sm.png) no-repeat 0px 5px;
+	cursor: pointer;	
+	background-color: red;
+	position:absolute;
+	width:20px;
+	height:73px;
+	left:-20px;
+	top:0px; 
+}
+
+/* KineticJS canvas */
+#interface, #map {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+#map {
+	opacity:0;
+}
+#customZoom {
+    position:absolute;
+    top:10px;
+    right:10px;
+    z-index:2000;
+}
+a#customZoomIn, a#customZoomOut {
+    width:15px;
+    height:15px;
+    background-color:#005fff;
+    border:none;
+    text-align:center;
+    color:white;
+    display:block;
+    cursor:pointer;
+}
+#customZoomIn {
+    padding-top:1px;
+}
+#customZoomOut {
+    top:25px;
+    margin-top:2px;
+}
+#players {
+    display: none;
+}
+#footer {
+	height:35px;
+	width:100%;
+	position:fixed;
+	bottom:0;
+	z-index:1;
+}
+#search {
+	display:block;
+	position:absolute;
+	right:40px;
+	bottom:10px;
+}
+#search input {
+	width:84px;
+	background-color:transparent;
+	border:1px #f1f1ff solid;
+	font-family:"Andale Mono", "Monotype.com", "Droid Sans", monospace, Helvetica, Arial, sans-serif;
+	color: #005fff;
+	font-size:1em;
+}
+#ajaxUploadContainer.complete .progressBarContainer .progressBar .progress  {
+    padding: 2px;
+	height:12px;
+	background-color:yellow;
+	overflow:hidden;
+}
+#ajaxUploadContainer .progressBarContainer .progressBar {
+	background-color:white;
+}
+
+.kineticjs-content canvas:first-child{
+	/*background-color:yellow;*/
+}
+
+
+
+
+
+/*for safari */
+.safari #addSoundText {	
+		position: absolute;
+		right: 105px;
+		bottom: 185px;
+		width: 100px;
+	}
+}
