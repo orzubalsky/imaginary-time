@@ -1,8 +1,6 @@
 from django.db.models import *
 from django.db.models.signals import post_save
 from django.dispatch import receiver  
-import os, sys, pytz, uuid, random
-
 
 class Base(Model):
     """Base model for all of the models in the app. """
