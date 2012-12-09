@@ -6,7 +6,7 @@ var site = window.site = new function() {
 	{
 	    var self = this;
         
-        this.formPlaceholders();
+        this.sliders();
         this.responseForm();
         this.debug();
     };
@@ -15,6 +15,93 @@ var site = window.site = new function() {
     {
         
     };
+    
+    this.sliders = function()
+    {
+        var self = this;
+        
+        var sliders = $('.sliderContainer');
+        
+        $('.sliderContainer').click(function(e)
+        {
+            var container = $(this).parent();
+            var previousValue = self.calculateValueFromElement(this);
+            var newValue = self.calculateValueFromClick(e, this, container);
+            $('input', container).val(newValue);
+            
+            var diff = newValue - previousValue;
+            var i=0;
+                        
+            while(diff > 0)
+            {
+                if ($(this)[0] != $(sliders)[i])
+                {
+                    var slider = sliders.eq(i);
+                    var container = $(slider).parent();
+                    var previousSliderValue = self.calculateValueFromElement(slider);
+                    if (previousSliderValue > 0)
+                    {
+                        var newSliderValue = previousSliderValue - 1;
+                        $('input', container).val(newSliderValue);
+                        diff -= 1;                        
+                    }
+                }
+                i++;
+                if (i == 12) { i = 0; }
+            }
+            
+            while(diff < 0)
+            {
+                if ($(this)[0] != $(sliders)[i])
+                {
+                    var slider = sliders.eq(i);
+                    var container = $(slider).parent();
+                    var previousSliderValue = self.calculateValueFromElement(slider);
+                    if (previousSliderValue > 0)
+                    {
+                        var newSliderValue = previousSliderValue + 1;
+                        $('input', container).val(newSliderValue);
+                        diff += 1;                        
+                    }
+                }
+                i++;
+                if (i == 12) { i = 0; }
+            }
+            
+            for(var i=0; i<sliders.size(); i++)
+            {
+                var slider = sliders.eq(i);
+                var container = $(slider).parent();
+
+                var value = self.calculateValueFromElement(slider);
+                var fillPercentage = self.map(value, 0.0, 12.0, 0, 100);
+
+                $('.fill', slider).css({'height': fillPercentage+'%'});
+                $('.value', container).html(Math.round(value));
+                $('input', container).val(value);
+            }
+        });
+    };
+    
+    this.calculateValueFromClick = function(event, element, container)
+    {
+        var self = this;
+        
+        var elementPosition = $(element).offset().top;
+        var clickPosition = event.pageY;
+        var click = (clickPosition - elementPosition);
+        
+        return parseFloat(Math.round(self.map(click, 0, 240, 12.0, 0.0)));
+    };
+    
+    this.calculateValueFromElement = function(element)
+    {
+        var self = this;
+        
+        var container = $(element).parent();
+        return parseFloat($('input', container).val());
+        
+    };    
 
     this.responseForm = function()
     {
@@ -72,54 +159,6 @@ var site = window.site = new function() {
             }
         }
 	};
-	
-	
-	this.formPlaceholders = function()
-	{
-        var arrInputs = document.getElementsByTagName("input");
-        for (var i = 0; i < arrInputs.length; i++) 
-        {
-            var curInput = arrInputs[i];
-            if (!curInput.type || curInput.type == "" || curInput.type == "text")
-            self.handlePlaceholder(curInput);
-        }	
-        
-        var arrTextareas = document.getElementsByTagName("textarea");
-        for (var i = 0; i < arrTextareas.length; i++) 
-        {
-            var curTextarea = arrTextareas[i];
-            self.handlePlaceholder(curTextarea);
-        }	    
-	};
-	
-    this.handlePlaceholder = function(oTextbox)
-    {
-        if (typeof oTextbox.placeholder == "undefined")
-        {
-            var curPlaceholder = oTextbox.getAttribute("placeholder");
-            
-            if (curPlaceholder && curPlaceholder.length > 0)
-            {
-                oTextbox.value = curPlaceholder;
-                oTextbox.setAttribute("old_color", oTextbox.style.color);
-                oTextbox.style.color = "#005fff";
-                oTextbox.onfocus = function()
-                {
-                    this.style.color = this.getAttribute("old_color");
-                    if (this.value === curPlaceholder)
-                        this.value = "";
-                };
-                oTextbox.onblur = function()
-                {
-                    if (this.value === "")
-                    {
-                        this.style.color = "#005fff";
-                        this.value = curPlaceholder;
-                    }
-                };
-            }
-        }
-    }	
 
 	this.appendFormError = function(form, message)
 	{
@@ -131,6 +170,33 @@ var site = window.site = new function() {
         $('#error #errorMessage').html('<p>' + message + '</p>');
         $('#error').fadeIn(1000);	    
 	};
+	
+	this.roundToHalf = function(value)
+	{ 
+       var converted = parseFloat(value); // Make sure we have a number 
+       var decimal = (converted - parseInt(converted, 10)); 
+    
+       decimal = Math.round(decimal * 10); 
+    
+       if (decimal == 5) { return (parseInt(converted, 10)+0.5); } 
+    
+       if ( (decimal < 3) || (decimal > 7) ) { 
+          return Math.round(converted); 
+       } else {
+          return (parseInt(converted, 10)+0.5); 
+       } 
+    }
+	
+    this.map = function(value, istart, istop, ostart, ostop, confine) 
+    {
+       var result = ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
+       if (confine)
+       {
+           result = (result > ostop) ? ostop : result;
+           result = (result < ostart) ? ostart : result;
+       }
+       return result;
+    };	
 };
 })(jQuery);
 
