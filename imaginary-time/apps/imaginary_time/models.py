@@ -35,10 +35,10 @@ class Response(Base):
     connect = FloatField(default= 0.0)
     move    = FloatField(default= 0.0)
     help    = FloatField(default= 0.0)
-    sent_by = IPAddressField()
+    sent_by = IPAddressField(null=True, blank=True)
 
     def __unicode__(self):
-        return "%s response" % sent_by
+        return "%s response" % self.sent_by
 
 
 @receiver(post_save, sender=Response)

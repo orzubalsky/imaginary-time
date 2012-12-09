@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}      	
+
+<div id="poll">
+  <h2>how would you like to spend your day?</h2>
+  <form id="timePoll" action="{% url poll %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input class="formSubmit" type="submit" value="SUBMIT">
+  </form>
+
+  <div class="success"><p>THANK YOU!</p></div>
+</div>
+{% endblock content %}

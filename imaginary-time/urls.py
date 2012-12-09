@@ -3,9 +3,6 @@ from django.contrib import admin
 from django.conf import settings
 from dajaxice.core import dajaxice_autodiscover, dajaxice_config
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from haystack.views import SearchView, search_view_factory
-from futures.forms import GeoSearchForm
-
 
 admin.autodiscover()
 dajaxice_autodiscover()
@@ -15,16 +12,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),    
-    url(r'^', include('futures.urls')),
-)
-
-# search url pattern
-urlpatterns += patterns('haystack.views',
-    url(r'^search/', search_view_factory(
-        view_class    = SearchView,
-        template      = 'search.html',
-        form_class    = GeoSearchForm
-    ), name='haystack_search'),
+    url(r'^', include('imaginary_time.urls')),
 )
 
 # static files url patterns

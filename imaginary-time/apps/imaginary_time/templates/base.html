@@ -1,231 +1,31 @@
-{% load i18n dajaxice_templatetags compress %}
+{% load i18n dajaxice_templatetags %}
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Fantastic Futures</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="description" content="Fantastic Futures is a collaborative team of students, artists, doctors, and future leaders from Iraq and the United States. Together, we created this online sound archive that examines our concepts of time through the recording, collaging, and sharing of sounds." />
-	<meta name="keywords" content="fantastic futures, collaboration, found sound, sound, sound archive, sound collage, constellation, dymaxion map" />
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/site.css" />
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fileuploader.css" />
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ajaxUpload.css" />	
-	<!--[if IE]>
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ie.css" />
-	<![endif]-->
-	<script src="{{ STATIC_URL }}js/browser.js" type="text/javascript"></script>
-	{% block extra_css %}{% endblock %}
-  <script type="text/javascript">
-    var STATIC_URL = '{{ STATIC_URL }}';
-    var DATA_LAYERS = {{ layers|safe }};
-  </script>
-  {% include "analytics.html" %}
+  <title>Imaginary Time</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="Imaginary Time is a collective textile making and time allocation project." />
+  <meta name="keywords" content="imaginary time, textile, time management, time, loom" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/site.css" />
+  <!--[if IE]>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ie.css" />
+  <![endif]-->
+  <script src="{{ STATIC_URL }}js/browser.js" type="text/javascript"></script>
+  {% block extra_css %}{% endblock %}
+  <script type="text/javascript">var STATIC_URL = '{{ STATIC_URL }}';</script>
 </head>
 <body>
-	<div id="container">
-	   	<div id="clickLayer"></div>
-        {% block content %}
-        {% endblock content %}
-        <div id="loadingGif"><!--img src="{{ STATIC_URL }}images/loading8.gif" width="100%" height="100%"/--></div>
-		
-        <div id="topMenu">
-            <!-- LOGO -->
-            <a href="#" id="logo"></a>   
-            <a href="#" id="addConstellationText"><h2>SAVE A CONSTELLATION?</h2></a>
-            <!--a href="#" id="errorText"><h2>SHOW AN ERROR</h2></a-->
-        </div>             
-        
-        <div class="soundText">
-        
-        </div>
-
-        <div id="bottomMenu">
-            <!-- ADD SOUND -->
-            <a href="#" id="addSoundText"><h2>+ ADD A SOUND</h2></a>
-            <div id="constellationMenuContainer">
-              {% include "constellations.html" %}
-            </div>
-        </div>
-            
-        </div>
-	
-        <!-- ADD SOUND -->
-        <div id="addSound" class="tran1">
-        	<canvas id="addSoundTriangle" width="20" height="20"></canvas>
-        	<script type="text/javascript">
-        		var c=document.getElementById("addSoundTriangle");
-        		var ctx=c.getContext("2d");
-        		ctx.fillStyle="#005fff";
-        		ctx.moveTo(20,0);
-        		ctx.lineTo(0,20);
-        		ctx.lineTo(20,20);
-        		//ctx.stroke();
-        		ctx.fill();
-        	</script>
-
-          <form id="addSoundForm" method="post" action="{% url home %}" enctype="multipart/form-data">
-            {% csrf_token %}  
-            <div class="errors">
-              {{ add_sound_form.filename.errors }}
-              {{ add_sound_form.created_by.errors }}
-              {{ add_sound_form.location.errors }}
-              {{ add_sound_form.story.errors }}
-            </div>
-            <div id="ajaxUploadContainer">
-              <a href="#" id="uploadText">CHOOSE FILE</a>
-              <div id="file-uploader"></div>
-                <div class="progressBarContainer">
-                  <div class="progressBar">
-                    loading...
-                    {# <div class="progress"></div> #}
-                  </div>
-                </div>
-              </div>
-              {{ add_sound_form.filename }}
-              {{ add_sound_form.lat }}
-              {{ add_sound_form.lon }}
-              
-              {{ add_sound_form.created_by }}
-              {{ add_sound_form.location }}
-              {{ add_sound_form.story }}
-              <button name="past" class ="time" value="0" id="past">PAST?</button>
-              <button name="present" class ="time" value="0" id="present">PRESENT?</button>
-              <button name="future" class ="time" value="0" id="future">FUTURE?</button>
-              <input class="formSubmit" type="submit" value="UPLOAD">
-            </form>
-            <div id="addSoundCheck">
-              :) SOUND ADDED!
-            </div>            
-        </div>
-        <!-- ADD SOUND ENDED -->
-            	 
-        <!-- CONSTELLATION -->
-        <div id="addConstellation" class="tran1">
-        	<canvas id="addConstellationTriangle" width="20" height="20"></canvas>
-        	<script type="text/javascript">
-        		var c=document.getElementById("addConstellationTriangle");
-        		var ctx=c.getContext("2d");
-        		ctx.fillStyle="#005fff";
-        		ctx.moveTo(20,0);
-        		ctx.lineTo(0,20);
-        		ctx.lineTo(20,20);
-        		//ctx.stroke();
-        		ctx.fill();
-        	</script>
-        	
-        	<form id="addConstellationForm" action="{% url home %}" method="post">		
-        	  {% csrf_token %}  
-        	  <div class="errors">
-              {{ constellation_form.title.errors }}       	  
-              {{ constellation_form.created_by.errors }}
-              {{ constellation_form.location.errors }}
-              {{ constellation_form.connection_count.errors }}
-              {{ constellation_form.zoom.errors }}              
-            </div>
-            {{ constellation_form.title }}       	  
-            {{ constellation_form.created_by }}
-            {{ constellation_form.location }}
-            {{ constellation_form.zoom }}            
-            {{ constellation_form.connection_count }}
-        		<input class="formSubmit" type="submit" value="SAVE">
-        	</form>
-      		<div id="addConstellationCheck">
-      			:) CONSTELLATION ADDED!
-      		</div>        	
-        </div>
-        <!-- CONSTELLATION ENDED -->
-
-      
-        <!-- SHOWING CONCERN -->
-        <div id="error">
-        	<canvas id="errorTriangle" width="20" height="20"></canvas>
-        	<script type="text/javascript">
-        		var c=document.getElementById("errorTriangle");
-        		var ctx=c.getContext("2d");
-        		ctx.fillStyle="#ff0000";
-        		ctx.moveTo(0,0);
-        		ctx.lineTo(0,20);
-        		ctx.lineTo(20,20);
-        		//ctx.stroke();
-        		ctx.fill();
-        	</script>
-
-        	<div id="errorMessage">			
-        		<p>SOMETHING IS NOT WORKING PROPERLY.</p>
-        		<p>CONTACT US AND TRY AGAIN.</p>
-        	</div>
-        </div>
-        <!-- SHOWING CONCERN ENDED -->
-
-        <!-- ABOUT -->      
-        <div id="about" class="tran1">
-          	<img src="{{ STATIC_URL }}images/logo_en_white.png" alt="fantastic futures logo" /><br/><br/>
-          	<img src="{{ STATIC_URL }}images/logo_ar_white.png" alt="fantastic futures logo" />
-          	<div class="description english">
-          		<p>Fantastic Futures is a collaborative team of students, artists, doctors, and future leaders from Iraq and the United States. Together, we created this online sound archive that examines our concepts of time through the recording, collaging, and sharing of sounds. Our goal is nothing short of social justice and our means of achieving that are slow, steady, and subversively poetic.</p>
-
-          		<p>This online platform is maintained with support by Rhizome at the New Museum.</p>
-          	</div>
-          		<div class="description arabic">
-          		<p>مشروع المستقبل الرائع هو مجموعة مشتركة ومتعاونة من طلبة العراق والولايات المتحدة. وقد قمنا شوية بخلق هذا المنبر المباشر على الانترنيت لخلط ومشاركة الاصوات المسجلة والقصص من ثقافات مختلفة. وهدفنا الاساس هو وصل الشعوب من امم مختلفة مع بعضهم وفتح الحوار المباشر بينهم اعتمادا على التسجيلات المشتركة والاغاني والمقابلات.</p>
-
-          		<p>نحن نأمل, ومن خلال هذا العمل, ان نقلص من الحواجز التي ساهمت في خلق سوء الفهم بين  الحضارات المختلفة.</p>
-
-          		<p>ان هذا المنبر مدعوم من قبل ريزوم. </p>
-          	</div>
-          	<img src="{{ STATIC_URL }}images/rhizome_logo.png" alt="rhizome logo" />
-          	<div id="aboutLinks">
-          	<ul>
-          		<li id="toggleLanguage"><a id="toggleAr">Read in Arabic</a><a id="toggleEn">Read in English</a></li>
-          		<li id="classicSite"><a>Classic Site</a></li>
-          		<li id="contactUs"><a>Contact Us</a></li>
-          	</ul>
-          </div>
-        </div>
-        <!-- ABOUT ENDED -->
-
-        <!-- FEEDBACK -->
-        <div id="feedback">
-              <div id="feedback_tab"></div>
-              <h1>Thanks for taking a minute to give us feedback.</h1>
-              <form id="feedbackForm" method="post" action="{% url home %}">
-                  {% csrf_token %}
-                  {{ feedback_form.as_p }}
-                  <input class="formSubmit" type="submit" value="SUBMIT" />
-              </form>
-              
-              <div id="feedbackCheck">
-                  :) SENT!
-              </div>              
-          </div>
-        <!-- FEEDBACK ENDED -->
-		<div id="footer">
-			<form id="search">
-			  {{ search_form.q }}
-			</form>
-		</div>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/lib/OpenLayers.js"></script>	
-    <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery.js"></script>	
-    <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery.jplayer.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery.mousewheel.js"></script>	  
-    <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery.scrollTo-1.4.3.js"></script>
-    {% dajaxice_js_import %}
-    <script type="text/javascript" src="{{ STATIC_URL }}js/lib/fileuploader.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/lib.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/site.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/ajaxUpload.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/lib/kinetic.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/lib/dymax.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/map.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/player.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/pov.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/connection.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/connections.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/playhead.js"></script>    
-    <script type="text/javascript" src="{{ STATIC_URL }}js/geosound.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/geosounds.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/constellations.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/interface.js"></script>	
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&amp;sensor=false"></script>
-	{% block extra_js %}{% endblock %}	
+  <div id="container">
+    <h1>IMAGINARY TIME</h1>
+    {% block content %}
+    {% endblock content %}
+   	<div id="clickLayer"></div>
+  </div>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery.js"></script>	
+  {% dajaxice_js_import %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/lib.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/site.js"></script>
+  {% include "analytics.html" %}
+  {% block extra_js %}{% endblock %}
 </body>
 </html>
