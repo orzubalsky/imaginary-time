@@ -23,18 +23,18 @@ class Base(Model):
 class Response(Base):
     """Stores values of a single response to the question posted on the site """
 
-    dream   = FloatField(default= 0.0)
-    make    = FloatField(default= 0.0)
-    learn   = FloatField(default= 0.0)
-    teach   = FloatField(default= 0.0)
-    rest    = FloatField(default= 0.0)
-    taste   = FloatField(default= 0.0)
-    play    = FloatField(default= 0.0)
-    earn    = FloatField(default= 0.0)
-    spend   = FloatField(default= 0.0)
-    connect = FloatField(default= 0.0)
-    move    = FloatField(default= 0.0)
-    help    = FloatField(default= 0.0)
+    dream   = FloatField(default= 2.0)
+    make    = FloatField(default= 2.0)
+    learn   = FloatField(default= 2.0)
+    teach   = FloatField(default= 2.0)
+    rest    = FloatField(default= 2.0)
+    taste   = FloatField(default= 2.0)
+    play    = FloatField(default= 2.0)
+    earn    = FloatField(default= 2.0)
+    spend   = FloatField(default= 2.0)
+    connect = FloatField(default= 2.0)
+    move    = FloatField(default= 2.0)
+    help    = FloatField(default= 2.0)
     sent_by = IPAddressField(null=True, blank=True)
 
     def __unicode__(self):

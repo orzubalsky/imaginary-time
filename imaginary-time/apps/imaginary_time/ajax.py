@@ -13,8 +13,18 @@ def submit_form(request, form):
     response_form = ResponseForm(deserialize_form(form))
         
     if response_form.is_valid():
-        message = "from: %s \n message: %s" % (feedback_form.cleaned_data.get('email'), feedback_form.cleaned_data.get('message'))        
-        send_mail('FF | Feedback Receieved!', message, 'noreply@fantasticfutures.fm', ('youngestforever@gmail.com',))
+        valid_form = response_form.save(commit=False)            
+        valid_form.sent_by = get_client_ip(request)
+        valid_form.save()
         
         return json.dumps({'success':True})
-    return json.dumps({'success':False, 'errors': feedback_form.errors})
+    return json.dumps({'success':False, 'errors': response_form.errors})
+        
+    
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip

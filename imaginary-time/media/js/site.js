@@ -108,46 +108,50 @@ var site = window.site = new function() {
         var self = this;
 
     	
-    	$('#feedbackForm').submit(function(e)
+    	$('#timeForm').submit(function(e)
     	{
     	    e.preventDefault();
     	    
             var data = $(this).serialize();
-            Dajaxice.futures.submit_feedback(self.feedback_callback, {'form':data});
+            Dajaxice.imaginary_time.submit_form(self.form_callback, {'form':data});
     	});
 	};
 	
 
-	this.feedback_callback = function(data)
+	this.form_callback = function(data)
 	{
-	    // reset error fields
-	    $('#feedbackForm input, #feedbackForm textarea').removeClass('error');
-	    
         if (data.success == true)
         {
             // 1. fade out form
 
-            $('#feedbackForm').fadeOut(300, function() 
+            $('.formSubmit').fadeOut(100, function() 
             {
                 // 2. fade in success message
-                $('#feedbackCheck').fadeIn(300, function() 
+                $('.success').fadeIn(300, function() 
                 {
-                    // 3. wait 1000 ms
+                    // 3. wait 500 ms
                     setTimeout(function() 
                     {
                         // 4. animate form back to its original position
-                        $('#feedback').animate(
+                        $('#formContent').animate(
                 	        {
-                	            right: -322
-                	        }, 1000, function() 
+                	            left: 2000
+                	        }, 2500, function() 
                 	            {
                 	                // 5. restore the form's original state
-                	                $('#feedbackCheck').hide();
-                	                $('#feedbackForm input, #feedbackForm textarea').not('.formSubmit').val('');
-                	                $('#feedbackForm').show();                                        
+                	                $('.success').fadeOut(1000, function()
+                	                {
+                	                    $('.fill').css({'height':'12.5%'});
+                	                    $('input').not('.formSubmit').val(2.0);
+                	                    $('#formContent').css({'left':'0'}).fadeIn(500, function()
+                	                    {
+                                            $('.formSubmit').fadeIn(200);
+                	                    });
+                    	                
+                	                });
                 	            }
                 	    );
-                    }, 1000);
+                    }, 500);
                 });
             });
         }

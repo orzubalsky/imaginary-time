@@ -14,7 +14,7 @@ class SliderWidget(forms.HiddenInput):
 class ResponseForm(forms.ModelForm):
     class Meta: 
         model   = Response
-        fields  = ('dream', 'make', 'learn', 'teach', 'rest', 'taste', 'play', 'earn', 'spend', 'connect', 'move', 'help', 'sent_by')
+        fields  = ('dream', 'make', 'learn', 'teach', 'rest', 'taste', 'play', 'earn', 'spend', 'connect', 'move', 'help')
         widgets = {
             'dream'   : SliderWidget(attrs={'class': 'sliderInput'}),
             'make'    : SliderWidget(attrs={'class': 'sliderInput'}),
@@ -28,5 +28,4 @@ class ResponseForm(forms.ModelForm):
             'connect' : SliderWidget(attrs={'class': 'sliderInput'}),
             'move'    : SliderWidget(attrs={'class': 'sliderInput'}),
             'help'    : SliderWidget(attrs={'class': 'sliderInput'}),
-            'sent_by' : forms.HiddenInput()
         }        
