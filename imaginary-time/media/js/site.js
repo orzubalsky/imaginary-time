@@ -57,7 +57,7 @@ var site = window.site = new function() {
                     var slider = sliders.eq(i);
                     var container = $(slider).parent();
                     var previousSliderValue = self.calculateValueFromElement(slider);
-                    if (previousSliderValue > 0)
+                    if (previousSliderValue < 12)
                     {
                         var newSliderValue = previousSliderValue + 1;
                         $('input', container).val(newSliderValue);
